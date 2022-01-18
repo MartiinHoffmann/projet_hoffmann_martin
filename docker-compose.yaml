@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+
+  apache-srv:
+    container_name: apache-srv
+    build: 
+      context: .
+      dockerfile: apache-srv.dockerfile
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./BACK:/var/www/html
