@@ -1,0 +1,11 @@
+<p>panier works!</p>
+
+<ul class="list-group">
+    <li *ngFor="let produit of lstProduits | async" class="list-group-item">
+        {{ produit.idProduit}} : {{ produit.nomProduit }} | {{ produit.prixProduit }} €
+        <button (click)="addProduit(produit)">Ajouter</button>
+        <button (click)="delProduit(produit)">Supprimer</button>
+    </li>
+</ul>
+
+<button (click)="clearProduit()">Paiement</button>

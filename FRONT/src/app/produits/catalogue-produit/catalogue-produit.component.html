@@ -1,1 +1,21 @@
-<p>catalogue-produit works!</p>
+<p>liste des produits marchent!</p>
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Filtrer sur la liste</span>
+    <input type="recherche" class="form-control" [(ngModel)]="recherche">
+</div>
+
+<ul class="list-group">
+    <li *ngFor="let produit of (listProduits | filtre:recherche)as folder" class="list-group-item">
+        <a [routerLink]="['/produits/detail/' + produit.idProduit]">{{ produit.idProduit}} : {{ produit.nomProduit }} | {{ produit.prixProduit }} €</a>
+        <button (click)="addProduit(produit)">Ajouter</button>
+    </li>
+</ul>
+
+<div *ngIf="(listProduits | filtre:recherche).length <1">
+    <p>Aucun résultat</p>
+</div>
+
+<p></p>
+
+<a [routerLink]="['/produits/panier']">Panier</a>

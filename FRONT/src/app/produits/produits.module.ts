@@ -1,25 +1,44 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CatalogueComponent } from './catalogue/catalogue.component';
-import { PanierComponent } from './panier/panier.component';
-import { PaiementComponent } from './paiement/paiement.component';
 import { CatalogueProduitComponent } from './catalogue-produit/catalogue-produit.component';
-import { PanierProduitComponent } from './panier-produit/panier-produit.component';
-import { PaiementProduitComponent } from './paiement-produit/paiement-produit.component';
+import { DetailProduitComponent } from './detail-produit/detail-produit.component';
+import { FiltrePipe } from '../Pipes/filtre.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { PanierComponent } from './Panier/panier.component';
 
-
+const produitRoutes: Routes = [
+  {
+    path: '',
+    children : [
+    {
+      path: 'catalogue',
+      component: CatalogueProduitComponent
+    },
+    {
+      path: 'panier',
+      component: PanierComponent
+    },
+    {
+      path: 'detail/:idProduit',
+      component: DetailProduitComponent
+    }
+    ]
+  }
+];
 
 @NgModule({
   declarations: [
-    CatalogueComponent,
-    PanierComponent,
-    PaiementComponent,
     CatalogueProduitComponent,
-    PanierProduitComponent,
-    PaiementProduitComponent
+    DetailProduitComponent,
+    FiltrePipe,
+    PanierComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(produitRoutes)
   ]
 })
 export class ProduitsModule { }

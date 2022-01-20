@@ -1,7 +1,7 @@
 <?php
 require '../bootstrap.php';
 
-function createProduit($nomProduit, $prixProduit)
+function CreateProduit($nomProduit, $prixProduit)
 {
     global $entityManager;
     $produit = new Produit;
@@ -13,11 +13,11 @@ function createProduit($nomProduit, $prixProduit)
     $entityManager->flush();
 }
 
-function GetProduit($nomProduit)
+function GetProduit($idProduit)
 {
     global $entityManager;
     $cr = $entityManager->getRepository('Produit');
-    $produit = $cr->findOneByLogin($nomProduit);
+    $produit = $cr->findOneByIdproduit($idProduit);
     if(is_null($produit))
     {
         return array("status" => "erreur", "message" => "Le produit n'est pas trouvé");

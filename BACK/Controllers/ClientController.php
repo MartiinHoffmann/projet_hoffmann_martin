@@ -37,3 +37,17 @@ function AuthentifierClient($login, $password)
 
     return array("status" => "ok", "message" => $client);
 }
+
+function GetClient($idClient)
+{
+    global $entityManager;
+    $cr = $entityManager->getRepository('Client');
+    $client = $cr->findOneByIdclient($idClient);
+
+    if(is_null($client))
+    {
+        return array("status" => "erreur", "message" => "Le compte n'est pas trouvé");
+    }
+
+    return array("status" => "ok", "message" => $client);
+}

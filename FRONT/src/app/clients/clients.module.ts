@@ -4,7 +4,6 @@ import { InscriptionClientComponent } from './inscription-client/inscription-cli
 import { ConnexionClientComponent } from './connexion-client/connexion-client.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GestionClientComponent } from './gestion-client/gestion-client.component';
 
 const clientRoutes: Routes = [
   {
@@ -17,10 +16,6 @@ const clientRoutes: Routes = [
     {
       path: 'connexionClient',
       component: ConnexionClientComponent
-    },
-    {
-      path: 'gestionClient',
-      component: ConnexionClientComponent
     }
     ]
   }
@@ -29,8 +24,7 @@ const clientRoutes: Routes = [
 @NgModule({
   declarations: [
     InscriptionClientComponent,
-    ConnexionClientComponent,
-    GestionClientComponent
+    ConnexionClientComponent
   ],
   imports: [
     CommonModule,

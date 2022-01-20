@@ -1,12 +1,12 @@
 <h1>Connexion</h1>
-<form>
+<form [formGroup]="clientForm" (ngSubmit)="onFormSubmit()">
     <div class="m-3">
         <label for="login" class="form-label">Login :</label>
-        <input type="text" id="login" name="login" class="form-control">
+        <input type="text" id="login" name="login" formControlName="login" class="form-control">
     </div>
     <div class="m-3">
         <label for="password" class="form-label">Mot de passe :</label>
-        <input type="password" id="password" name="password" class="form-control">
+        <input type="password" id="password" name="password" formControlName="password" class="form-control">
     </div>
     <div class="m-3">
         <input type="submit" value="Connexion" class="btn btn-primary">

@@ -7,6 +7,7 @@ use Tuupola\Middleware\JwtAuthentication as JwtAuthentication;
 use \Firebase\JWT\JWT;
 require '../vendor/autoload.php';
 require '../Controllers/ClientController.php';
+require '../Controllers/ProduitController.php';
 
 const JWT_MDP = "voicilemdpduJWT";
 
@@ -21,7 +22,7 @@ $app->add(new JwtAuthentication([
     "secret" => JWT_MDP,
 
     "path" => ["/api"],
-    "ignore" => ["/api/hello", "/api/auth", "/api/login", "/api/inscription", "/api/createUser"],
+    "ignore" => ["/api/hello", "/api/auth", "/api/login", "/api/inscription", "/api/detailClient", "/api/produit", "/api/listeProduit", "/api/createUser"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -39,6 +40,75 @@ $app->get('/api/auth/{prenom}', function (Request $request, Response $response, 
     return $response->withHeader("Authorization", "Bearer { $token_jwt }");
 });
 
+//GetAllProduit, récupération d'un produit avec son id
+$app->get('/api/listeProduit', function (Request $request, Response $response, $args) 
+{
+    $response = ajoutHeadersCors($response);
+    $produitArray = GetAllProduit();
+
+    $listProduit = array();
+    foreach ($produitArray["message"] as $produit) {
+        $listProduit[] = array(
+            "idProduit" => $produit->getIdproduit(),
+            "nomProduit" => $produit->getNomproduit(),
+            "prixProduit" => $produit->getPrixproduit()
+        );
+    }
+
+    $response = $response->withStatus(200);
+    $response = $response->withHeader("Content-Type", "application/json");
+    $response->getBody()->write(json_encode($listProduit));
+
+    return $response;
+
+});
+
+//GetProduit, récupération d'un produit avec son id
+$app->get('/api/produit/{idProduit}', function (Request $request, Response $response, $args) 
+{
+    $response = ajoutHeadersCors($response);
+    $produitArray = GetProduit(array("idProduit" => $args['idProduit']));
+
+    $produit = $produitArray["message"];
+    $detailProduit = array(
+        "nomProduit" => $produit->getNomproduit(),
+        "prixProduit" => $produit->getPrixproduit()
+    );
+
+    $response = $response->withStatus(200);
+    $response = $response->withHeader("Content-Type", "application/json");
+    $response->getBody()->write(json_encode($detailProduit));
+
+    return $response;
+
+});
+
+//GetClient, récupération d'un client avec son id
+$app->get('/api/detailClient/{idClient}', function (Request $request, Response $response, $args) 
+{
+    $response = ajoutHeadersCors($response);
+    $clientArray = GetClient(array("idClient" => $args['idClient']));
+
+    $client = $clientArray["message"];
+    $detailClient = array(
+        "nom" => $client->getNom(),
+        "prenom" => $client->getPrenom(),
+        "ville" => $client->getVille(),
+        "codePostal" => $client->getCodepostal(),
+        "tel" => $client->getTelephone(),
+        "email" => $client->getEmail(),
+        "civilite" => $client->getCivilite()
+    );
+
+    $response = $response->withStatus(200);
+    $response = $response->withHeader("Content-Type", "application/json");
+    $response->getBody()->write(json_encode($detailClient));
+
+    return $response;
+
+});
+
+//Création d'un client
 $app->post('/api/inscription', function (Request $request, Response $response, $args)
 {
     $body = $request->getParsedBody();
@@ -60,11 +130,14 @@ $app->post('/api/inscription', function (Request $request, Response $response, $
         return $response;
     }
 
+    $response = ajoutHeadersCors($response);
+
     CreateClient($nom, $prenom, $ville, $codePostal, $email, $tel, $civilite, $login, $password);
 
     return $response;
 });
 
+//Check si l'authentification est juste
 $app->post('/api/login', function (Request $request, Response $response, $args) {
     $body = $request->getParsedBody();
     $login = $body['login'];
@@ -110,7 +183,7 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
 
 function ajoutHeadersCors($response) {
     $response = $response->withHeader("Content-Type", "application/json")
-        ->withHeader("Access-Control-Allow-Origin", "http://localhost:4200")
+        ->withHeader("Access-Control-Allow-Origin", "https://projet-hoffmann-martin.herokuapp.com")
         ->withHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
         ->withHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
         ->withHeader("Access-Control-Expose-Headers", "Authorization");

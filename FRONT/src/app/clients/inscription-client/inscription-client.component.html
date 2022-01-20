@@ -2,45 +2,49 @@
 <form [formGroup]="clientForm" (ngSubmit)="onFormSubmit()">
     <div class="m-3">
         <label for="nom" class="form-label">Nom :</label>
-        <input type="text" id="nom" name="nom" formControlName="nom" title="Mettre que des lettres" class="form-control">
+        <input type="text" id="nom" name="nom" formControlName="nom" title="Mettre que des lettres" placeholder="Veuillez mettre que des lettres" class="form-control">
         <label *ngIf="clientForm.get('nom')!.invalid && clientForm.get('nom')!.dirty">Veuillez entrer que des lettres</label>
-        <small>Que des lettres</small>
     </div>
     <div class="m-3">
         <label for="prenom" class="form-label">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" formControlName="prenom" class="form-control">
+        <input type="text" id="prenom" name="prenom" formControlName="prenom" placeholder="Veuillez mettre que des lettres" class="form-control">
+        <label *ngIf="clientForm.get('prenom')!.invalid && clientForm.get('prenom')!.dirty">Veuillez entrer que des lettres</label>
     </div>
     <div class="m-3">
         <label for="adresse" class="form-label">Adresse :</label>
-        <input type="text" id="adresse" name="adresse" formControlName="adresse" class="form-control">
+        <input type="text" id="adresse" name="adresse" formControlName="adresse" placeholder="Veuillez entrer votre adresse" class="form-control">
     </div>
     <div class="m-3">
         <label for="cp" class="form-label">Code postal :</label>
-        <input type="text" id="cp" name="cp" formControlName="cp" class="form-control">
+        <input type="text" id="cp" name="cp" formControlName="cp" placeholder="Veuillez entrer votre code Postal" class="form-control">
+        <label *ngIf="clientForm.get('cp')!.invalid && clientForm.get('cp')!.dirty">Veuillez entrer votre code de postal à 5 chiffres</label>
     </div>
     <div class="m-3">
         <label for="ville" class="form-label">Ville :</label>
-        <input type="text" id="ville" name="ville" formControlName="ville" class="form-control">
+        <input type="text" id="ville" name="ville" formControlName="ville" placeholder="Veuillez entrer votre ville" class="form-control">
+        <label *ngIf="clientForm.get('ville')!.invalid && clientForm.get('ville')!.dirty">Veuillez entrer que des lettres</label>
     </div>
     <div class="m-3">
         <label for="tel" class="form-label">Téléphone :</label>
-        <input type="text" id="tel" name="tel" formControlName="tel" class="form-control">
+        <input type="text" id="tel" name="tel" formControlName="tel" placeholder="Veuillez entre votre numéro de téléphone ex : 0656768654" class="form-control">
+        <label *ngIf="clientForm.get('tel')!.invalid && clientForm.get('tel')!.dirty">Veuillez entrer un numéro à 10 chiffres</label>
     </div>
     <div class="m-3">
         <label for="email" class="form-label">Email :</label>
-        <input type="email" id="email" name="email" formControlName="email" class="form-control">
+        <input type="email" id="email" name="email" formControlName="email" placeholder="Veuillez entre votre mail" class="form-control">
+        <label *ngIf="clientForm.get('email')!.invalid && clientForm.get('email')!.dirty">Veuillez entrer votre email ex : email@gmail.com</label>
     </div>
     <div class="m-3">
         <label for="civilite" class="form-label">Civilité :</label>
-        <input type="text" id="civilite" name="civilite" formControlName="civilite" class="form-control">
+        <input type="text" id="civilite" name="civilite" formControlName="civilite" placeholder="Veuillez entrer votre civilite" class="form-control">
     </div>
     <div class="m-3">
         <label for="login" class="form-label">Login :</label>
-        <input type="text" id="login" name="login" formControlName="login" class="form-control">
+        <input type="text" id="login" name="login" formControlName="login" placeholder="Veuillez le login que vous souhaitez" class="form-control">
     </div>
     <div class="m-3">
         <label for="password" class="form-label">Mot de passe :</label>
-        <input type="password" id="password" name="password" formControlName="password" class="form-control">
+        <input type="password" id="password" name="password" formControlName="password" placeholder="Veuillez entrer le mot de passe que vous souhaitez" class="form-control">
     </div>
     <div class="m-3">
         <input type="submit" value="Envoyer" class="btn btn-primary">
