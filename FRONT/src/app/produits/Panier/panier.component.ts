@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Produit } from 'src/app/Models/Produit';
@@ -12,7 +13,7 @@ import { PanierState } from '../PanierAction/panier-state';
 })
 export class PanierComponent implements OnInit {
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private router: Router) { }
 
   @Select(PanierState.getListProduits) lstProduits?: Observable<Produit[]>;
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class PanierComponent implements OnInit {
   {
     this.store.dispatch(new ClearPanier());
     alert("Votre paiement est effectué");
+    this.router.navigateByUrl('/produits/catalogue');
   }
 
 }

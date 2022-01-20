@@ -32,7 +32,6 @@ export class InscriptionClientComponent implements OnInit {
   onFormSubmit(): void {
     if(this.clientForm.invalid)
     {
-      alert("Le formulaire est invalide, attention aux valeurs !");
       return;
     }
     this.client.nom = this.clientForm.get('nom')!.value;
